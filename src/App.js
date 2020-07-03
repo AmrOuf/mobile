@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+
+import Homepage from './pages/Homepage';
+import MobileDetails from './pages/MobileDetails';
+import Comparison from './pages/Comparison';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/mobile-details" exact component={MobileDetails} />
+          <Route path="/comparison" exact component={Comparison} />
+          <Route path="/" exact component={Homepage} />
+        </Switch>
+      </BrowserRouter>
+    </Fragment>
   );
 }
 

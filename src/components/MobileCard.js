@@ -18,19 +18,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MobileCard = () => {
+const MobileCard = ({ mobile, setCurrentMobile }) => {
   const classes = useStyles();
+
+  const handleMobileClick = () => {
+    setCurrentMobile(mobile);
+  };
 
   return (
     <Fragment>
       <ButtonBase
         className={classes.cardContainer}
+        onClick={handleMobileClick}
         component={Link}
         to={'/mobile-details'}
       >
         <Paper className={classes.mobileCard}>
-          <Typography variant="h4">Mobile Name</Typography>
-          <Typography variant="subtitle2">Samsung</Typography>
+          <Typography variant="h4">{mobile.DeviceName}</Typography>
+          <Typography variant="subtitle2">{mobile.Brand}</Typography>
         </Paper>
       </ButtonBase>
     </Fragment>

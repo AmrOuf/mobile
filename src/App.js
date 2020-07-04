@@ -5,12 +5,11 @@ import axios from 'axios';
 import Homepage from './pages/Homepage';
 import MobileDetails from './pages/MobileDetails';
 import Comparison from './pages/Comparison';
-import MobileCard from './components/MobileCard';
 
 function App() {
   const [mobiles, setMobiles] = useState([]);
   const [currentMobile, setCurrentMobile] = useState({});
-  const [loadingMode, setLoadingMode] = useState('manual');
+  const [loadingMode, setLoadingMode] = useState('auto');
   const [comparedMobiles, setComparedMobiles] = useState([]);
 
   useEffect(() => {
@@ -42,7 +41,12 @@ function App() {
           <Route
             path="/comparison"
             exact
-            render={() => <Comparison comparedMobiles={comparedMobiles} />}
+            render={() => (
+              <Comparison
+                comparedMobiles={comparedMobiles}
+                setCurrentMobile={setCurrentMobile}
+              />
+            )}
           />
           <Route
             path="/"
@@ -53,6 +57,7 @@ function App() {
                 loadingMode={loadingMode}
                 setCurrentMobile={setCurrentMobile}
                 setComparedMobiles={setComparedMobiles}
+                setLoadingMode={setLoadingMode}
               />
             )}
           />

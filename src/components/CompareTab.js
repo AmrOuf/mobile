@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Paper,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +16,15 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: '300px',
+  },
+  paper: {
+    padding: '10px',
+    marginTop: '20px',
+    textAlign: 'center',
+  },
+  btn: {
+    display: 'block',
+    marginTop: '20px',
   },
 }));
 
@@ -51,31 +61,34 @@ const CompareTab = ({ mobiles, setComparedMobiles }) => {
 
   return (
     <Fragment>
-      <Typography variant="h4">Choose two mobiles</Typography>
-      <FormControl className={classes.formControl}>
-        <InputLabel>First choice</InputLabel>
-        <Select value={mobile1} onChange={handleChange1}>
-          {mobileList1}
-        </Select>
-      </FormControl>
+      <Paper className={classes.paper}>
+        <Typography variant="h4">Choose two mobiles</Typography>
+        <FormControl className={classes.formControl}>
+          <InputLabel>First choice</InputLabel>
+          <Select value={mobile1} onChange={handleChange1}>
+            {mobileList1}
+          </Select>
+        </FormControl>
 
-      <FormControl className={classes.formControl}>
-        <InputLabel>Second choice</InputLabel>
-        <Select value={mobile2} onChange={handleChange2}>
-          {mobileList2}
-        </Select>
-      </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel>Second choice</InputLabel>
+          <Select value={mobile2} onChange={handleChange2}>
+            {mobileList2}
+          </Select>
+        </FormControl>
 
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        onClick={handleClick}
-        component={Link}
-        to={'/comparison'}
-      >
-        Compare Now!
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+          component={Link}
+          to={'/comparison'}
+          className={classes.btn}
+          disabled={!mobile1.DeviceName || !mobile2.DeviceName}
+        >
+          Compare Now!
+        </Button>
+      </Paper>
     </Fragment>
   );
 };

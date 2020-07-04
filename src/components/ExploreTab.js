@@ -1,20 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import {
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-} from '@material-ui/core';
+import React, { Fragment, useState, useEffect, useLayoutEffect } from 'react';
+import { Button } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import MobileCard from './MobileCard';
 
 const useStyles = makeStyles((theme) => ({
   btn: {
     marginTop: '20px',
+    margin: 'auto',
   },
 }));
 
@@ -35,13 +28,27 @@ const ExploreTab = ({ mobiles, loadingMode, setCurrentMobile }) => {
     setContent(list.slice(0, 10));
   }, [mobiles]);
 
+  useLayoutEffect(() => {
+    if (loadingMode === 'auto') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  });
+
   const handleClick = () => {
-    // const list = [...mobileList];
     setContent([
       ...content,
       ...mobileList.slice(content.length, content.length + 10),
     ]);
-    console.log(loadingMode);
+  };
+
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      setContent([
+        ...content,
+        ...mobileList.slice(content.length, content.length + 10),
+      ]);
+    }
   };
 
   return (
@@ -52,6 +59,7 @@ const ExploreTab = ({ mobiles, loadingMode, setCurrentMobile }) => {
           variant="contained"
           color="primary"
           size="large"
+          fullWidth
           onClick={handleClick}
           className={classes.btn}
         >
